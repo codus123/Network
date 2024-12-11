@@ -1,0 +1,8 @@
+en
+conf t
+line console 0
+exec-timeout 0 0
+logging sync
+exit
+no ip domain-lookup
+hostname

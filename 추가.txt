@@ -1,0 +1,10 @@
+인접한 장비끼리 통신하기 위해서는 서로 같은 네트워크 ID를 사용해야 한다.
+[Computer1] 192.168.1.1 ----- 192.168.1.2 [Computer2]
+	Subnet Mask: 255.255.255.0
+
+[Computer1] 172.16.1.1 -[Switch]- 172.16.2.2 [Computer2]
+	Subnet Mask: 255.255.0.0
+
+
+[Router1] f0/0 10.1.1.1 ----- 10.2.2.2 f0/0 [Router2]
+	Subnet Mask: 255.0.0.0
