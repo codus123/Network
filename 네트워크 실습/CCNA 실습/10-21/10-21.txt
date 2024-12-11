@@ -1,0 +1,16 @@
+설정순서
+1) 인터페이스 주소 설정
+<--- 주소 설정 확인: show ip int brief
+2) 인접 Ping
+3) 라우팅 설정
+4) 라우팅 테이블 확인: show ip route
+5) 원격 Ping
+
+Default Route
+ip route 0.0.0.0 0.0.0.0 {넥스트홉 | 로컬인터페이스}
+
+RIP 기본 설정
+router rip
+version 2
+no auto-summary
+network 네트워크
