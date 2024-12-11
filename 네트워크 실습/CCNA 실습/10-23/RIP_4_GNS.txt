@@ -1,0 +1,96 @@
+R1
+conf t
+!
+key chain CCNA
+key 1
+key-st cisco
+!
+int lo0
+ip add 1.1.1.1 255.255.255.0
+!
+int lo10
+ip add 10.0.0.1 255.255.255.0
+!
+int s0/0
+no sh
+ip add 192.168.12.1 255.255.255.0
+!
+int f0/0
+no sh
+ip add 192.168.13.1 255.255.255.0
+ip rip authen key-chain CCNA
+ip rip authen mo md5
+!
+router rip
+ver 2
+no auto
+net 1.0.0.0
+net 10.0.0.0
+net 192.168.12.0
+net 192.168.13.0
+!
+---
+R2
+conf t
+!
+int lo0
+ip add 2.2.2.2 255.255.255.0
+!
+int lo20
+ip add 20.0.0.2 255.255.255.0
+!
+int s0/0
+no sh
+ip add 192.168.12.2 255.255.255.0
+!
+int s0/1
+no sh
+ip add 192.168.23.2 255.255.255.0
+!
+router rip
+ver 2
+no auto
+net 2.0.0.0
+net 20.0.0.0
+net 192.168.12.0
+net 192.168.23.0
+!
+---
+R3
+conf t
+!
+key chain CCNA
+key 1
+key-st cisco
+!
+int lo0
+ip add 3.3.3.3 255.255.255.0
+!
+int lo30
+ip add 30.0.0.3 255.255.255.0
+!
+int s0/1
+no sh
+ip add 192.168.23.3 255.255.255.0
+!
+int f0/0
+no sh
+ip add 192.168.13.3 255.255.255.0
+ip rip authen key-chain CCNA
+ip rip authen mo md5
+!
+router rip
+ver 2
+no auto
+net 3.0.0.0
+net 30.0.0.0
+net 192.168.23.0
+net 192.168.13.0
+!
+---
+확인_다이나밉스
+!
+sh ip int br
+sh ip route
+sh ip protocols
+!
