@@ -1,0 +1,33 @@
+최적경로 우선순위
+1) Longest Match
+ping 1.1.1.1
+routing Table
+1.1.1.0/24
+1.1.0.0/16
+2) AD
+routing Table
+1.1.1.0/24(120/5)
+1.1.1.0/24(110/5)
+3) Metric
+routing Table
+1.1.1.0/24(120/5)
+1.1.1.0/24(120/3)
+
+Looping
+1. 뺑뺑이
+2. 먼 길 돌아가는 것
+
+
+(RIP) Routing Loop Solution
+1) Split Horizon
+2) Route Poisoning
+3) Poison Reverse
+4) Holddown Time
+5) Maximum Hop Count = 15
+show ip protocols
+
+[RIP Timers]
+Update          30sec
+Invalid          180sec
+Holddown     180sec
+Flush             240sec
