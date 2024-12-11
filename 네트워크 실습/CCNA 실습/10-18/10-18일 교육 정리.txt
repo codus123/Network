@@ -1,0 +1,148 @@
+[텔넷 인증]
+1) 패스워드 인증
+line vty 0 4
+password 암호
+login
+2) 사용자 인증
+username 이름 password 암호
+line vty 0 4
+login local
+3) 무인증
+line vty 0 4
+no password
+no login
+
+텔넷 접근
+telnet 상대방주소
+
+R2
+line vty 0 4
+pass cisco123
+login
+exit
+conf t
+enable pass cisco
+R1
+telnet 10.0.0.2
+====
+R3
+username admin pass cisco123
+line vty 0 4
+login local
+enable pass cisco
+R2
+telnet 20.0.0.3
+
+[패스워드 Reset]
+1) 재시작
+2) [Ctrl] + [Break]
+3) Rommon> confreg 0x42
+4) Rommon> reset
+5) 부팅후 Password 재설정
+6) R(config)# config-register 0x2102
+7) R# copy run start
+
+
+[환경변수]
+환경변수값 확인: show version
+0x2101               Boot to ROM, Use NVRAM
+0x2141               Boot to ROM, Skip NVRAM
+0x2102               Boot to Flash, Use NVRAM = Normal
+0x2142               Boot to Flash, Skip NVRAM = Password Recovery
+
+[IOS 백업]
+R1
+int f0/0
+no shut
+ip add 192.168.1.1 255.255.255.0
+
+show flash
+copy flash tftp
+
+Server
+주소: 192.168.1.10
+
+
+IOS File: 모 - 특 - 램.압 - 버.bin
+
+
+
+[RAM] -> copy run tftp [TFTP] copy start tftp <- [NVRAM]
+
+
+
+[Router 초기화]
+R1
+en
+conf t
+host R1
+int f0/0
+no sh
+ip add 192.168.1.1 255.255.255.0
+enable pass cisco
+end
+copy run start
+===
+[라우터 초기화]
+erase start
+reload
+[스위치 초기화]
+erase start
+delete vlan.dat
+reload
+
+hostname SW1
+enable pass cisco
+vlan 10
+vlan 20
+end
+copy run start
+==============
+debug ip packet
+debug ip rip
+
+[Debug 확인]
+show debug
+[Debug 전부 해제]
+un all
+
+Static Route
+ip route 목적지네트워크 서브넷마스크 {넥스트홉 | 로컬인터페이스}
+
+Routing Table
+show ip route
+
+(R1) --- s0/0 --- (R2) --- s0/1 --- (R3)
+
+R1
+hostname R1
+int s0/0
+no shutdown
+ip address 192.168.1.1 255.255.255.0
+R2
+hostname R2
+int s0/0
+no shutdown
+ip address 192.168.1.2 255.255.255.0
+int s0/1
+no shutdown
+ip address 192.168.2.2 255.255.255.0
+R3
+hostname R3
+int s0/1
+no shutdown
+ip address 192.168.2.3 255.255.255.0
+
+show ip int brief
+show ip route
+
+ 
+[실습 0]
+R1
+ip route 192.168.2.0 255.255.255.0 192.168.1.2
+                    OR
+ip route 192.168.2.0 255.255.255.0 s0/0
+R3
+ip route 192.168.1.0 255.255.255.0 192.168.2.2
+                    OR
+ip route 192.168.1.0 255.255.255.0 s0/1

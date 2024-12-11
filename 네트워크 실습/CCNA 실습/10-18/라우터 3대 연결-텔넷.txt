@@ -1,0 +1,39 @@
+R1
+int s0/0
+no sh
+ip add 10.0.0.1 255.255.255.0
+!
+---
+R2
+int s0/0
+no sh
+ip add 10.0.0.2 255.255.255.0
+!
+int s0/1
+no sh
+ip add 20.0.0.2 255.255.255.0
+!
+line vty 0 4
+pass cisco123
+login
+!
+enable pass cisco
+!
+---
+R3
+!
+int s0/1
+no sh
+ip add 20.0.0.3 255.255.255.0
+!
+username admin pass cisco123
+!
+line vty 0 4
+login local
+!
+enable pass cisco
+!
+
+
+
+
